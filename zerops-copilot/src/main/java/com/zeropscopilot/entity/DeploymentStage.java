@@ -18,7 +18,11 @@ import java.util.List;
 public class DeploymentStage extends BaseEntity {
 
     public enum StageStatus {
-        PENDING, RUNNING, SUCCESS, FAILED, SKIPPED
+        PENDING,
+        RUNNING,
+        SUCCESS,
+        FAILED,
+        SKIPPED
     }
 
     @NotBlank(message = "Stage name cannot be blank")
