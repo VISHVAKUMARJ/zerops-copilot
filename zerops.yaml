@@ -1,11 +1,10 @@
 zerops:
-  - setup: java
+  - setup: chatBot
 
     build:
       base: java@21
-
       prepareCommands:
-        - zsc add maven
+        - zsc install maven@latest
 
       buildCommands:
         - cd zerops-copilot
