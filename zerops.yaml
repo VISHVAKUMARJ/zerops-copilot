@@ -5,8 +5,7 @@ zerops:
       base: alpine/java@21
 
       buildCommands:
-        - cd zerops-copilot
-        - ./mvnw clean package -DskipTests
+        - cd zerops-copilot && ./mvnw clean package -DskipTests
 
       deployFiles:
         - zerops-copilot/target/*.jar
