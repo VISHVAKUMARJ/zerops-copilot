@@ -7,7 +7,7 @@ server:
 spring:
   application:
     name: zerops-copilot
-  
+
   datasource:
     url: jdbc:postgresql://localhost:5432/zeropscopilot
     username: postgres
@@ -34,6 +34,12 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     operationsSorter: method
+
+# NEW - Zerops configuration
+zerops:
+  api:
+    base-url: https://api.app-prg1.zerops.io/api/rest/public
+    token: "BmlNBREW1hlX6K6BIJ0YCFDaalOyRxl7CgQSl9u4FN4W21GcTT9hideG.6O0XBAu-i"
 
 logging:
   level:

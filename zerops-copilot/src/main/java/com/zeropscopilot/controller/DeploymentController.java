@@ -47,4 +47,15 @@ public class DeploymentController {
         deploymentService.updateDeploymentStatus(id, status);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/zerops-test")
+    @Operation(
+        summary = "Test Zerops API connection",
+        description = "Tests connectivity with the Zerops REST API."
+    )
+    public ResponseEntity<String> testZeropsConnection() {
+
+    return ResponseEntity.ok(
+            deploymentService.testZeropsConnection());
+    }
 }

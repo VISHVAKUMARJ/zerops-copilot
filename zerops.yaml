@@ -1,0 +1,26 @@
+zerops:
+  - setup: zerops-copilot
+
+    build:
+      base: java@21
+
+      buildCommands:
+        - cd zerops-copilot
+        - mvn clean package -DskipTests
+
+      deployFiles:
+        - zerops-copilot/target/*.jar
+
+    run:
+      base: java@21
+
+      ports:
+        - port: 8080
+          httpSupport: true
+
+      envVariables:
+        SPRING_DATASOURCE_URL: ${db_connectionString}
+        SPRING_DATASOURCE_USERNAME: ${db_user}
+        SPRING_DATASOURCE_PASSWORD: ${db_password}
+
+      start: java -jar zerops-copilot/target/*.jar
