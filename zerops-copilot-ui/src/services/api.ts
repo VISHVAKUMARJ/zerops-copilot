@@ -1,6 +1,6 @@
 import { AnalyzeRequest, AiAnalysisResponse } from '../types';
 
-const API_BASE_URL = "https://java-29aa-8080.prg1.zerops.app";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const analyzeDeployment = async (
   request: AnalyzeRequest
