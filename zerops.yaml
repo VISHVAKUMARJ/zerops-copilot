@@ -2,17 +2,18 @@ zerops:
   - setup: java
 
     build:
-      base: alpine/java@21
+      base: java@21
 
       buildCommands:
-        - cd zerops-copilot
-        - ./mvnw clean package -DskipTests
+        - |
+          cd zerops-copilot
+          ./mvnw clean package -DskipTests
 
       deployFiles:
         - zerops-copilot/target/*.jar
 
     run:
-      base: alpine/java@21
+      base: java@21
 
       ports:
         - port: 8080
