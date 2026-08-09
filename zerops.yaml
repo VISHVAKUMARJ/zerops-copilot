@@ -1,91 +1,25 @@
 zerops:
-  - setup: ui
+  - setup: java
 
     build:
-      base: nodejs@22
+      base: alpine/java@21
 
       buildCommands:
-        - cd zerops-copilot-ui && npm install
-        - cd zerops-copilot-ui && node node_modules/typescript/bin/tsc
-        - cd zerops-copilot-ui && node node_modules/vite/bin/vite.js build
+        - cd zerops-copilot && ./mvnw clean package -DskipTests
 
       deployFiles:
-        - zerops-copilot-ui/dist/*
+        - zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
 
     run:
-      base: static
+      base: alpine/java@21
 
+      ports:
+        - port: 8080
+          httpSupport: true
 
+      envVariables:
+        SPRING_DATASOURCE_PASSWORD: ${db_password}
+        SPRING_DATASOURCE_URL: jdbc:postgresql://${db_hostname}:5432/${db_dbName}
+        SPRING_DATASOURCE_USERNAME: ${db_user}
 
-# zerops:
-
-#   # ============================================================
-#   # 1. SPRING BOOT BACKEND
-#   # ============================================================
-#   - setup: java
-
-#     build:
-#       base: alpine/java@21
-
-#       buildCommands:
-#         - cd zerops-copilot && ./mvnw clean package -DskipTests
-
-#       deployFiles:
-#         - zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
-
-#     run:
-#       base: alpine/java@21
-
-#       ports:
-#         - port: 8080
-#           httpSupport: true
-
-#       envVariables:
-#         SPRING_DATASOURCE_PASSWORD: ${db_password}
-#         SPRING_DATASOURCE_URL: jdbc:postgresql://${db_hostname}:5432/${db_dbName}
-#         SPRING_DATASOURCE_USERNAME: ${db_user}
-
-#       start: java -jar zerops-copilot-0.0.1-SNAPSHOT.jar
-
-
-#   # ============================================================
-#   # 2. REACT / VITE FRONTEND
-#   # ============================================================
-#   - setup: ui
-
-#     build:
-#       base: nodejs@22
-
-#       buildCommands:
-#         - cd zerops-copilot-ui && npm ci
-#         - cd zerops-copilot-ui && npm run build
-
-#       deployFiles:
-#         - zerops-copilot-ui/dist
-
-#     run:
-#       base: static
-
-
-#   # ============================================================
-#   # 3. AI SERVICE
-#   # ============================================================
-#   - setup: ai
-
-#     build:
-#       base: python@3.12
-
-#       buildCommands:
-#         - cd zerops-copilot-ai && pip install -r requirements.txt
-
-#       deployFiles:
-#         - zerops-copilot-ai
-
-#     run:
-#       base: python@3.12
-
-#       ports:
-#         - port: 8000
-#           httpSupport: true
-
-#       start: cd zerops-copilot-ai && python main.py
+      start: java -jar zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
