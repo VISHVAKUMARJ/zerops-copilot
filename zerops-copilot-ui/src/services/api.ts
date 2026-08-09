@@ -1,6 +1,6 @@
 import { AnalyzeRequest, AiAnalysisResponse } from '../types';
 
-const API_BASE_URL = '';
+const API_BASE_URL = "https://java-29aa-8080.prg1.zerops.app";
 
 export const analyzeDeployment = async (
   request: AnalyzeRequest
