@@ -2,26 +2,24 @@ zerops:
   - setup: java
 
     build:
-      base: java@21
+      base: alpine/java@21
 
       buildCommands:
-        - |
-          cd zerops-copilot
-          ./mvnw clean package -DskipTests
+        - cd zerops-copilot && ./mvnw clean package -DskipTests
 
       deployFiles:
         - zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
 
     run:
-      base: java@21
+      base: alpine/java@21
 
       ports:
         - port: 8080
           httpSupport: true
 
       envVariables:
+        SPRING_DATASOURCE_PASSWORD: ${db_password}
         SPRING_DATASOURCE_URL: jdbc:postgresql://${db_hostname}:5432/${db_dbName}
         SPRING_DATASOURCE_USERNAME: ${db_user}
-        SPRING_DATASOURCE_PASSWORD: ${db_password}
 
-      start: java -jar zerops-copilot-0.0.1-SNAPSHOT.jar
+      start: java -jar zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
