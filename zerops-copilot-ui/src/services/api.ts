@@ -1,11 +1,14 @@
 import { AnalyzeRequest, AiAnalysisResponse } from '../types';
 
-const API_BASE_URL = ''; // Now handled by Vite proxy
+const API_BASE_URL = '';
 
-export const analyzeDeployment = async (request: AnalyzeRequest): Promise<AiAnalysisResponse> => {
-  const url = '/api/v1/ai/analyze';
-  console.log("AI analysis request:", url);
-  console.log("AI analysis payload:", request);
+export const analyzeDeployment = async (
+  request: AnalyzeRequest
+): Promise<AiAnalysisResponse> => {
+  const url = `${API_BASE_URL}/api/v1/ai/analyze`;
+
+  console.log('AI analysis request:', url);
+  console.log('AI analysis payload:', request);
 
   try {
     const response = await fetch(url, {
@@ -18,13 +21,27 @@ export const analyzeDeployment = async (request: AnalyzeRequest): Promise<AiAnal
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Backend error response:", response.status, errorText);
-      throw new Error(`Backend error (${response.status}): ${errorText || 'Failed to reach Zerops Copilot backend'}`);
+
+      console.error(
+        'Backend error response:',
+        response.status,
+        errorText
+      );
+
+      throw new Error(
+        `Backend error (${response.status}): ${
+          errorText || 'Failed to reach Zerops Copilot backend'
+        }`
+      );
     }
 
-    return await response.json();
+    const data: AiAnalysisResponse = await response.json();
+
+    console.log('AI analysis response:', data);
+
+    return data;
   } catch (error) {
-    console.error("AI analysis fetch error:", error);
+    console.error('AI analysis fetch error:', error);
     throw error;
   }
 };

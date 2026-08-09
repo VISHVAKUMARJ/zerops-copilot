@@ -1,10 +1,11 @@
 export interface AiAnalysisResponse {
-  severity: string;
+  severity?: string;
   confidence: number;
-  rootCause: string;
+  rootCause?: string;
   summary: string;
-  recommendedFix: string[];
-  filesToCheck: string[];
+  recommendations?: string;
+  recommendedFix?: string[];
+  filesToCheck?: string[];
 }
 
 export interface AnalyzeRequest {
