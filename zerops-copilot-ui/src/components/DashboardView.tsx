@@ -59,6 +59,9 @@ interface DashboardViewProps {
 const PROJECT_ID =
   '5152c581-d863-433b-bb5b-c795bc3410d6';
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL;
+
 /* =========================================================
    Component
    ========================================================= */
@@ -94,7 +97,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
       const deploymentResponse =
         await fetch(
-          `/api/v1/deployments/project/${PROJECT_ID}`
+          `${API_BASE_URL}/api/v1/deployments/project/${PROJECT_ID}`
         );
 
       if (!deploymentResponse.ok) {
@@ -119,7 +122,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
       /* ---------------------------------------------------
          2. Fetch detailed deployment information
-         
+
          We do this because the project-level deployment
          response may say PENDING while the actual stage
          has FAILED.
@@ -132,7 +135,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
               try {
                 const response =
                   await fetch(
-                    `/api/v1/deployments/${deployment.id}`
+                    `${API_BASE_URL}/api/v1/deployments/${deployment.id}`
                   );
 
                 if (!response.ok) {
@@ -185,7 +188,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
               try {
                 const response =
                   await fetch(
-                    `/api/v1/ai-analyses/deployment/${deployment.id}`
+                    `${API_BASE_URL}/api/v1/ai-analyses/deployment/${deployment.id}`
                   );
 
                 /*
@@ -284,7 +287,6 @@ const DashboardView: React.FC<DashboardViewProps> = ({
           'Unable to load dashboard data.'
         );
       }
-
     } finally {
       setIsLoading(false);
     }
@@ -364,7 +366,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Deployment statistics
-     * ======================================================= */
+     ======================================================= */
 
   const totalDeployments =
     deployments.length;
@@ -387,7 +389,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Recent deployments
-     * ======================================================= */
+     ======================================================= */
 
   const recentDeployments = [
     ...deployments,
@@ -411,14 +413,14 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Recent AI analyses
-     * ======================================================= */
+     ======================================================= */
 
   const recentAnalyses =
     analyses.slice(0, 2);
 
   /* =======================================================
      Confidence formatter
-     * ======================================================= */
+     ======================================================= */
 
   const formatConfidence = (
     confidence?: number
@@ -449,7 +451,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Severity badge
-     * ======================================================= */
+     ======================================================= */
 
   const getSeverityClass = (
     severity?: string
@@ -485,7 +487,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Loading state
-     * ======================================================= */
+     ======================================================= */
 
   if (isLoading) {
     return (
@@ -513,7 +515,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Error state
-     * ======================================================= */
+     ======================================================= */
 
   if (error) {
     return (
@@ -567,7 +569,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({
 
   /* =======================================================
      Dashboard UI
-     * ======================================================= */
+     ======================================================= */
 
   return (
     <div
