@@ -1,5 +1,5 @@
 zerops:
-  - setup: zerops-copilot
+  - setup: java
 
     build:
       base: java@21
