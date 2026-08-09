@@ -10,7 +10,7 @@ zerops:
           ./mvnw clean package -DskipTests
 
       deployFiles:
-        - zerops-copilot/target/*.jar
+        - zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
 
     run:
       base: java@21
@@ -24,4 +24,4 @@ zerops:
         SPRING_DATASOURCE_USERNAME: ${db_user}
         SPRING_DATASOURCE_PASSWORD: ${db_password}
 
-      start: java -jar zerops-copilot/target/*.jar
+      start: java -jar zerops-copilot-0.0.1-SNAPSHOT.jar
