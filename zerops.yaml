@@ -1,17 +1,24 @@
 zerops:
-  - setup: ui
+  - setup: ai
 
     build:
-      base: nodejs@22
-
-      buildCommands:
-        - cd zerops-copilot-ui && npm install
-        - cd zerops-copilot-ui && node node_modules/typescript/bin/tsc
-        - cd zerops-copilot-ui && node node_modules/vite/bin/vite.js build
+      base: python@3.12
 
       deployFiles:
-        - ./zerops-copilot-ui/dist
+        - ./zerops-copilot-ai/app
+        - ./zerops-copilot-ai/requirements.txt
+
+      addToRunPrepare:
+        - ./zerops-copilot-ai/requirements.txt
 
     run:
-      base: nginx@latest
-      documentRoot: zerops-copilot-ui/dist
+      base: python@3.12
+
+      prepareCommands:
+        - cd zerops-copilot-ai && pip install --no-cache-dir -r requirements.txt
+
+      ports:
+        - port: 8000
+          httpSupport: true
+
+      start: cd zerops-copilot-ai && uvicorn app.main:app --host 0.0.0.0 --port 8000
