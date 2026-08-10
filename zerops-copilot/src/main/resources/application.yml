@@ -1,8 +1,10 @@
 server:
   port: 8080
-  error:
-    include-message: always
-    include-binding-errors: always
+  forward-headers-strategy: framework
+
+error:
+  include-message: always
+  include-binding-errors: always
 
 spring:
   application:
@@ -35,11 +37,11 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
 
-# NEW - Zerops configuration
+# Zerops configuration
 zerops:
   api:
     base-url: https://api.app-prg1.zerops.io/api/rest/public
-    token: "BmlNBREW1hlX6K6BIJ0YCFDaalOyRxl7CgQSl9u4FN4W21GcTT9hideG.6O0XBAu-i"
+    token: "YOUR_ZEROPS_TOKEN"
 
 logging:
   level:
