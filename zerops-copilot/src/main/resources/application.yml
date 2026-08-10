@@ -37,15 +37,13 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
 
-# Zerops configuration
 zerops:
   api:
     base-url: https://api.app-prg1.zerops.io/api/rest/public
-    token: "YOUR_ZEROPS_TOKEN"
+    token: "YOUR_TOKEN"
 
 logging:
   level:
     com.zeropscopilot: DEBUG
     org.springframework.web: INFO
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
