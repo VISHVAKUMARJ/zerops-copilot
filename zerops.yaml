@@ -4,8 +4,8 @@ zerops:
     build:
       base: python@3.12
 
-      addToRunPrepare:
-        - ./zerops-copilot-ai/requirements.txt
+      buildCommands:
+        - cd zerops-copilot-ai && pip install --no-cache-dir -r requirements.txt
 
       deployFiles:
         - ./zerops-copilot-ai/app
@@ -13,9 +13,6 @@ zerops:
 
     run:
       base: python@3.12
-
-      prepareCommands:
-        - pip install --no-cache-dir -r requirements.txt
 
       ports:
         - port: 8000
