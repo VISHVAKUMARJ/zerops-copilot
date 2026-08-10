@@ -1,25 +1,21 @@
 zerops:
+  - setup: ai
 
-  setup: ai
+    build:
+      base: python@3.12
 
-  build:
-    base: python@3.12
+      buildCommands:
+        - cd zerops-copilot-ai && pip install --no-cache-dir -r requirements.txt
 
-    buildCommands:
-      - cd zerops-copilot-ai && pip install --no-cache-dir -r requirements.txt
+      deployFiles:
+        - ./zerops-copilot-ai/app
+        - ./zerops-copilot-ai/requirements.txt
 
-    deployFiles:
-      - ./zerops-copilot-ai/app
-      - ./zerops-copilot-ai/requirements.txt
+    run:
+      base: python@3.12
 
-  run:
-    base: python@3.12
+      ports:
+        - port: 8000
+          httpSupport: true
 
-    prepareCommands:
-      - cd zerops-copilot-ai && pip install --no-cache-dir -r requirements.txt
-
-    ports:
-      - port: 8000
-        httpSupport: true
-
-    start: cd zerops-copilot-ai && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+      start: cd /var/www/zerops-copilot-ai && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
