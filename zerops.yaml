@@ -18,7 +18,7 @@ zerops:
       base: python@3.12
 
       prepareCommands:
-        - pip install --no-cache-dir -r requirements.txt
+        - pip install --no-cache-dir -r ./zerops-copilot-ai/requirements.txt
 
       ports:
         - port: 8000
