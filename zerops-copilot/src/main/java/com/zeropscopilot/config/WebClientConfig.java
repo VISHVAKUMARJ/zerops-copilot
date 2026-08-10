@@ -10,7 +10,7 @@ public class WebClientConfig {
     @Bean
     public WebClient webClient(WebClient.Builder builder) {
         return builder
-                .baseUrl("https://ai-29aa-8000.prg1.zerops.app")
+                .baseUrl("http://ai:8000")
                 .build();
     }
 }

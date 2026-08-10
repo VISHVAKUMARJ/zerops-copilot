@@ -1,27 +1,25 @@
 zerops:
-  - setup: ai
+  - setup: java
 
     build:
-      base: python@3.12
+      base: alpine/java@21
 
       buildCommands:
-        - cd zerops-copilot-ai && pip install --no-cache-dir -r requirements.txt
-
-      addToRunPrepare:
-        - ./zerops-copilot-ai/requirements.txt
+        - cd zerops-copilot && ./mvnw clean package -DskipTests
 
       deployFiles:
-        - ./zerops-copilot-ai/app
-        - ./zerops-copilot-ai/requirements.txt
+        - zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
 
     run:
-      base: python@3.12
-
-      prepareCommands:
-        - pip install --no-cache-dir -r ./zerops-copilot-ai/requirements.txt
+      base: alpine/java@21
 
       ports:
-        - port: 8000
+        - port: 8080
           httpSupport: true
 
-      start: cd /var/www/zerops-copilot-ai && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+      envVariables:
+        SPRING_DATASOURCE_PASSWORD: ${db_password}
+        SPRING_DATASOURCE_URL: jdbc:postgresql://${db_hostname}:5432/${db_dbName}
+        SPRING_DATASOURCE_USERNAME: ${db_user}
+
+      start: java -jar zerops-copilot/target/zerops-copilot-0.0.1-SNAPSHOT.jar
